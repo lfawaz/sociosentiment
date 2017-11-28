@@ -1,19 +1,12 @@
-require('dotenv').config();
+var express = require('express'),
+    app = express()
 
-var Twitter = require('twitter')
+var tweetsRoutes = require('./routes/tweets')
 
-var client = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-})
 
-const params = {
-                screen_name: 'realdonaldtrump',
-                count:1,
-                exclude_replies1: true }
+app.use('/api/tweets', tweetsRoutes)
 
-client.get('statuses/user_timeline', params, function(error, tweets, response){
-  console.log(tweets)
-})
+const port = 3001
+const host = 'localhost'
+
+app.listen(port, host, () => console.log(`APP Running on port ${host}:${port}`))
