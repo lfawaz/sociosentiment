@@ -6,7 +6,7 @@ export const GET_TWEETS = 'GET_TWEETS'
 export function getTweets(handle){
   const URL = `${ROOT_URL}/${handle}`
   const request = axios.get(URL)
-
+  console.log(`fired API call for ${handle}`)
   return{
     type: GET_TWEETS,
     payload: request

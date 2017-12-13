@@ -22,18 +22,26 @@ exports.getTweets = function(req, res){
    params.screen_name = req.params.handle
    params.count = 200
      client.get(request, params)
-       .then(tweets => res.send(tweets.map(tweet => ({
-         "id": tweet.id,
-         "date": tweet.created_at,
-         "tweet" : tweet.full_text,
-         "truncated" : tweet.truncated,
-        "retweets": tweet.retweet_count,
-        "favorites": tweet.favorite_count,
-        "followers" : tweet.user.followers_count,
-        "image" : tweet.user.profile_image_url
+       .then(data => {
+         const tweets = {}
 
-       }))))
-     }
+        
+        tweets[req.params.handle] = data.map(tweet => ({
+                                               "date": tweet.created_at,
+                                               "tweet" : tweet.full_text,
+                                               "truncated" : tweet.truncated,
+                                              "retweets": tweet.retweet_count,
+                                              "favorites": tweet.favorite_count,
+                                              "followers" : tweet.user.followers_count,
+                                              "image" : tweet.user.profile_image_url
+
+                                             })
+                                           )
+
+            res.send(tweets)
+     })
+}
+
 
 
 exports.getAllTweets = function(req, res){
