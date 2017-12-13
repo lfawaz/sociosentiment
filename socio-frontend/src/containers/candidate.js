@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getTweets } from '../actions/index'
+import TrendSparklines from '../components/trend_sparklines'
 
 class Candidate extends Component  {
   componentWillMount(){
-    this.props.getTweets('realDonaldTrump')
+    this.props.getTweets(this.props.candidate)
   }
   render(){
-    const tweets = this.props.tweets.map((tweet) => (
-      <li key={tweet.tweet}>{tweet.tweet}</li>
-    ))
-    return(<ul>
-      {tweets}
-    </ul>)
+    const favorites = this.props.tweets.map((tweet) => tweet.favorites)
+
+    return(
+    <ul>
+        <TrendSparklines data={favorites} color={this.props.color} />
+      </ul>)
   }
 }
 

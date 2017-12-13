@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import Candidate from './components/candidate'
+import Candidate from './containers/candidate'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-    <Candidate />
+
+      <Candidate candidate="hillaryclinton" color="red" />
+
       </div>
     );
   }

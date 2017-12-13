@@ -23,6 +23,7 @@ exports.getTweets = function(req, res){
    params.count = 200
      client.get(request, params)
        .then(tweets => res.send(tweets.map(tweet => ({
+         "id": tweet.id,
          "date": tweet.created_at,
          "tweet" : tweet.full_text,
          "truncated" : tweet.truncated,
