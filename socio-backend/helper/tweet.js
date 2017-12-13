@@ -1,4 +1,5 @@
 require('dotenv').config({path: '../.env'});
+sw = require('stopword')
 
 var Twitter = require('twitter')
 
@@ -8,7 +9,9 @@ var client = new Twitter({
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 })
-
+function cleanString(string){
+  return sw.removeStopwords(string.toLowerCase().replace(/[^a-z\s]/g,'').split(' ').filter(word=> word.indexOf("http") !== 0)).join(' ')
+}
 
 request = 'statuses/user_timeline'
 const params = {
@@ -25,10 +28,10 @@ exports.getTweets = function(req, res){
        .then(data => {
          const tweets = {}
 
-        
+
         tweets[req.params.handle] = data.map(tweet => ({
                                                "date": tweet.created_at,
-                                               "tweet" : tweet.full_text,
+                                               "tweet" : cleanString(tweet.full_text),
                                                "truncated" : tweet.truncated,
                                               "retweets": tweet.retweet_count,
                                               "favorites": tweet.favorite_count,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Candidate from './candidate'
+import Candidate from '../containers/candidate'
 
 const handleList = [['realdonaldtrump','red'],['hillaryclinton','blue'],['SenJohnMcCain','red'],['barackobama','blue']]
 

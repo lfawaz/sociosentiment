@@ -10,7 +10,9 @@
     "react-scripts": "1.0.17",
     "react-sparklines": "^1.7.0",
     "redux": "^3.7.2",
-    "redux-promise": "^0.5.3"
+    "redux-promise": "^0.5.3",
+    "remove-punctuation": "0.0.4",
+    "stripchar": "^1.2.1"
   },
   "proxy": "http://localhost:3001",
   "scripts": {
