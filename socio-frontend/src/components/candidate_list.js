@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Candidate from '../containers/candidate'
 
-const handleList = [['realdonaldtrump','red'],['hillaryclinton','blue'],['SenJohnMcCain','red'],['barackobama','blue']]
+const handleList = [['CoryBooker','blue'],['KamalaHarris','blue'],['StephenAtHome','grey'],['realdonaldtrump','red'],['hillaryclinton','blue'],['SenJohnMcCain','red'],['barackobama','blue']]
 
 class CandidateList extends Component  {
 
