@@ -15,6 +15,7 @@ class CandidateList extends Component  {
     <thead>
     <tr>
       <th>Image</th>
+      <th>Frequency</th>
       <th>Favorites</th>
       <th>Retweets</th>
     </tr>

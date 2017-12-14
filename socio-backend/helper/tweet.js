@@ -10,7 +10,7 @@ var client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 })
 function cleanString(string){
-  return sw.removeStopwords(string.toLowerCase().replace(/[^a-z\s]/g,'').split(' ').filter(word=> word.indexOf("http") !== 0)).join(' ')
+  return sw.removeStopwords(string.toLowerCase().replace(/[^a-z\s]/g,'').split(' ').filter(word=> word !== "amp")).join(' ')
 }
 
 request = 'statuses/user_timeline'

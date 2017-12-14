@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getTweets } from '../actions/index'
-import TrendSparklines from '../components/trend_sparklines'
+//import TrendSparklines from '../components/trend_sparklines'
+import SimpleCloud from '../components/tag_cloud'
+
 import './candidate.css'
 
 class Candidate extends Component  {
@@ -9,57 +11,81 @@ class Candidate extends Component  {
     this.props.getTweets(this.props.handle)
   }
 
-wordCount(tweets){
+
+mapWordToMeasure(tweetWord){
+  return tweetWord.words.map((word) => ({         text: word,
+                                                  favorites: tweetWord.favorites,
+                                                  retweets: tweetWord.retweets,
+                                                  count: 1
+
+                        }))
+}
+
+wordSummary(tweets){
   //Generate a list of words
-  const tweetWords = [].concat(...tweets.map((tweet) => tweet.tweet.split(' '))).reduce((accu, nextWord) => {
-    if(accu[nextWord] === undefined){
-      accu[nextWord] = 1
+  const tweetWords = [].concat(...tweets.map((tweet) => ({ words: tweet.tweet.split(' '),
+                                                           favorites: tweet.favorites,
+                                                           retweets: tweet.retweets
+
+
+                                                        }) ))
+
+  return [].concat([],...tweetWords.map(tweetWord => this.mapWordToMeasure(tweetWord))).reduce((accu, nextValue) => {
+
+    if(accu.filter((obj) => obj.text === nextValue.text).length === 0){
+      accu.push(nextValue)
+    }else{
+      for (var i = 0; i < accu.length; i++) {
+        if(accu[i].text === nextValue.text){
+          accu[i].count += nextValue.count
+          accu[i].favorites += nextValue.favorites
+          accu[i].retweets += nextValue.retweets
+        }
+      }
     }
-    else{
-      accu[nextWord] += 1
-    }
+
     return accu
-  },{})
 
-  return tweetWords
+  },[]).filter(word => word.count > 5)
+
+
 }
 
-filterAndSort(tweetWords){
 
-  const words = Object.keys(tweetWords)
-
-  return words.filter(word => tweetWords[word] > 10).map((word) => ({[word]: tweetWords[word]}))
-}
   render(){
 
     const tweets = this.props.tweetsAll[this.props.handle]
-
      if(!tweets){
      return (
        <div>loading...{this.props.handle}</div>
      )
      }
 
-     const favorites = tweets.map((tweet) => tweet.favorites)
-     const retweets  = tweets.map((tweet) => tweet.retweets)
-     console.log(this.props.handle)
-     console.log(this.filterAndSort(this.wordCount(tweets)))
+     //const favorites = tweets.map((tweet) => tweet.favorites)
+     //const retweets  = tweets.map((tweet) => tweet.retweets)
+     const tagCloudCount = this.wordSummary(tweets).map((word)=> ({ value: word.text, count: word.count}))
+     const tagCloudFavorite = this.wordSummary(tweets).map((word)=> ({ value: word.text, count: word.favorites/word.count}))
+     const tagCloudRetweet = this.wordSummary(tweets).map((word)=> ({ value: word.text, count: word.retweets/word.count}))
+
 
     return(
+
       <tr className="handle-row">
-      <td>
-      <img src={tweets[0].image} alt=""/>
-      </td>
-
-      <td>
-      <TrendSparklines data={favorites} color={this.props.color} />
-      </td>
-
-      <td>
-      <TrendSparklines data={retweets} color={this.props.color} />
-      </td>
-
+        <td>
+          <img src={tweets[0].image} alt=""/>
+          </td>
+        <td>
+          <SimpleCloud data={tagCloudCount}/>
+          </td>
+        <td>
+          <SimpleCloud data={tagCloudFavorite}/>
+          </td>
+          <td>
+          <SimpleCloud data={tagCloudRetweet}/>
+          </td>
       </tr>
+
+
     )
   }
 }
