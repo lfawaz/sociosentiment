@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getTweets } from '../actions/index'
-import TrendSparklines from '../components/trend_sparklines'
+import ChartLine from '../components/chart'
 import './candidate.css'
 
 class CandidateTrend extends Component  {
   componentWillMount(){
     this.props.getTweets(this.props.handle)
   }
-
+  calculateMovingAverage(data){
+    return data.map((value, index) => {
+      const accu = data.slice(0,index+1).reduce((accu, value) => accu + value)
+      return accu/(index+1)
+    })
+  }
   render(){
 
     const tweets = this.props.tweetsAll[this.props.handle]
@@ -20,8 +25,11 @@ class CandidateTrend extends Component  {
 
      const favorites = tweets.map((tweet) => tweet.favorites)
      const retweets  = tweets.map((tweet) => tweet.retweets)
+     const tweetText = tweets.map((tweet) => tweet.tweet)
 
-
+     const favoritesMovingAverage = this.calculateMovingAverage(favorites)
+     const retweetsMovingAverage = this.calculateMovingAverage(retweets)
+     const labels = tweets.map((tweet,index) => index.toString())
 
     return(
 
@@ -33,10 +41,10 @@ class CandidateTrend extends Component  {
           <p>{this.props.handle}</p>
           </td>
         <td>
-          <TrendSparklines data={favorites} color={this.props.color}/>
+          <ChartLine data={favoritesMovingAverage} tweetText={tweetText} labels={labels} label="Favorites moving average"/>
           </td>
         <td>
-          <TrendSparklines data={retweets} color={this.props.color}/>
+          <ChartLine data={retweetsMovingAverage} labels={labels} label="retweets moving average"/>
           </td>
 
       </tr>

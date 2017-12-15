@@ -10,7 +10,7 @@ import { createStore, applyMiddleware } from 'redux'
 import promiseMiddleware from 'redux-promise'
 import rootReducer from './reducers'
 import { BrowserRouter, Route, Switch} from 'react-router-dom'
-
+import Home from './containers/home'
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore)
 
 const handleList = [['realdonaldtrump','red'],['BernieSanders','blue'],['JoeBiden','blue'],['KamalaHarris','blue'],['SenBooker','blue'],['SenGillibrand','blue'],['SenWarren','blue'],['JohnKasich','red']]
@@ -21,7 +21,8 @@ ReactDOM.render(
   <BrowserRouter>
         <Switch>
           <Route path='/cloud' component={()=> <CandidateWordList handleList={handleList}/>}  />
-          <Route path='/' component={()=> <CandidateTrendList handleList={handleList}/>} />
+          <Route path='/trend' component={()=> <CandidateTrendList handleList={handleList}/>} />
+          <Route path='/'      component={Home}  />
         </Switch>
   </BrowserRouter>
   </Provider>

@@ -13,7 +13,7 @@ function cleanString(string){
   return sw.removeStopwords(string.toLowerCase().replace(/[^a-z\s]/g,'').split(' ').filter(word=> word !== "amp")).join(' ')
 }
 
-request = 'statuses/user_timeline'
+
 const params = {
                exclude_replies: true,
                include_rts: false,
@@ -21,6 +21,8 @@ const params = {
              }
 
 exports.getTweets = function(req, res){
+   const request = 'statuses/user_timeline'
+
    params.screen_name = req.params.handle
    params.count = 3200
    params.max_id = req.params.maxId
@@ -50,8 +52,20 @@ exports.getTweets = function(req, res){
 
 
 exports.getAllTweets = function(req, res){
+  const request = 'statuses/user_timeline'
+
   params.screen_name = req.params.handle
   params.count = 2
+          client.get(request, params)
+            .then(tweets => res.send(tweets))
+          }
+
+
+exports.getAllMentions = function(req, res){
+  const request = 'statuses/mentions_timeline'
+  params.screen_name = req.params.handle
+  params.count = 2
+  
           client.get(request, params)
             .then(tweets => res.send(tweets))
           }
