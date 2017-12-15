@@ -15,7 +15,6 @@ function cleanString(string){
 
 request = 'statuses/user_timeline'
 const params = {
-               count:200,
                exclude_replies: true,
                include_rts: false,
                tweet_mode: 'extended'
@@ -23,16 +22,17 @@ const params = {
 
 exports.getTweets = function(req, res){
    params.screen_name = req.params.handle
-   params.count = 200
+   params.count = 3200
+   params.max_id = req.params.maxId
      client.get(request, params)
        .then(data => {
          const tweets = {}
 
 
         tweets[req.params.handle] = data.map(tweet => ({
-                                               "date": tweet.created_at,
-                                               "tweet" : cleanString(tweet.full_text),
-                                               "truncated" : tweet.truncated,
+                                              "Id": tweet.id,
+                                              "date": tweet.created_at,
+                                              "tweet" : cleanString(tweet.full_text),
                                               "retweets": tweet.retweet_count,
                                               "favorites": tweet.favorite_count,
                                               "followers" : tweet.user.followers_count,
@@ -44,6 +44,8 @@ exports.getTweets = function(req, res){
             res.send(tweets)
      })
 }
+
+
 
 
 

@@ -1,21 +1,26 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { TagCloud } from "react-tagcloud"
-//
-// const data = [
-//   { value: "JavaScript", count: 38 },
-//   { value: "React", count: 30 },
-//   { value: "Nodejs", count: 28 },
-//   { value: "Express.js", count: 25 },
-//   { value: "HTML5", count: 33 },
-//   { value: "MongoDB", count: 18 },
-//   { value: "CSS3", count: 20 }
-// ];
 
-const SimpleCloud = ({ data }) => (
-  <TagCloud minSize={12}
-            maxSize={35}
-            tags={data}
-            onClick={tag => alert(`'${tag.value}' was selected!`)} />
-);
 
+class SimpleCloud extends Component{
+
+  showDetails(tag){
+    const  record = this.props.data.filter((word) => word.value === tag.value)[0]
+    alert(`${record.value}: ${record.count}`)
+  }
+
+  render(){
+    const { data } = this.props
+
+    return(
+      <TagCloud minSize={12}
+                maxSize={50}
+                tags={data}
+                onClick={tag => this.showDetails(tag)}/>
+
+    )
+  }
+
+
+}
 export default SimpleCloud
