@@ -42,7 +42,7 @@ exports.getTweets = function(req, res){
 
                                              })
                                            )
-
+          console.log(tweets)                                 
             res.send(tweets)
      })
 }
@@ -65,7 +65,7 @@ exports.getAllMentions = function(req, res){
   const request = 'statuses/mentions_timeline'
   params.screen_name = req.params.handle
   params.count = 2
-  
+
           client.get(request, params)
             .then(tweets => res.send(tweets))
           }
