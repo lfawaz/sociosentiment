@@ -15,7 +15,7 @@ class CandidateWordList extends Component  {
     return(
       <div>
       <div>
-        <Link className="btn btn-primary" to='/'>To Trends</Link>
+        <Link className="btn btn-primary" to='/trend'>To Trends</Link>
       </div>
     <table className="table table-hover">
     <thead>

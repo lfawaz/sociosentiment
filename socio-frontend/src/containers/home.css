@@ -1,0 +1,30 @@
+.app-div{
+  display: flex;
+  flex-direction: column;
+}
+
+.body-div{
+  display: flex;
+  height: 500px;
+
+}
+
+.navbar-div{
+  height: 100px;
+}
+
+.left-body-div{
+  width: 50%;
+}
+
+.right-body-div{
+  width: 50%;
+}
+
+.foot-div{
+  height: 75px;
+}
+
+div{
+  border: 1px solid black;
+}

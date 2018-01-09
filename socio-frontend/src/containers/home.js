@@ -1,42 +1,36 @@
 import React, { Component } from 'react'
-import ChartLine from '../components/chart'
-import { connect } from 'react-redux'
-import { getTweets } from '../actions/index'
+import './home.css'
 
 class Home extends Component {
-  componentWillMount(){
-    this.props.getTweets('realdonaldtrump')
-  }
-
-  calculateMovingAverage(data){
-    return data.map((value, index) => {
-      const accu = data.slice(0,index+1).reduce((accu, value) => accu + value)
-      return accu/(index+1)
-    })
-  }
   render(){
-    //console.log(this.props.tweetsAll)
-    
-    const tweets = this.props.tweetsAll['realdonaldtrump']
+    const handleList = this.props.handleList.map(handle=>(
+      <p key={handle[0]}>{handle[0]}</p>
+    ))
+    return(<div className='app-div'>
 
-     if(!tweets){
-     return (
-       <div>loading...{this.props.handle}</div>
-     )
-     }
-
-     const favorites = tweets.map((tweet) => tweet.favorites)
-     const favoritesMovingAverage = this.calculateMovingAverage(favorites)
-     const labels = tweets.map((tweet,index) => index.toString())
+    <div className='navbar-div'>
+    Navbar
+    </div>
 
 
-    console.log(labels)
-    return(<ChartLine data={favoritesMovingAverage} labels={labels} label="Favorites moving average"/>)
+    <div className='body-div'>
+
+    <div className='left-body-div'>
+    {handleList}
+    </div>
+
+    <div className='right-body-div'>
+    {handleList}
+    </div>
+
+    </div>
+    <div className='foot-div'>
+    footer div
+    </div>
+
+    </div>)
   }
 }
 
-function mapStateToProps({ tweetsAll }){
-  return { tweetsAll }
-}
 
-export default connect(mapStateToProps, { getTweets })(Home)
+export default Home

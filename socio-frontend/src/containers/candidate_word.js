@@ -71,7 +71,7 @@ wordSummary(tweets){
        return b.count - a.count
      }).slice(1,21)
      const tweetsAfter =  tweets.map(tweet=> new Date(tweet.date).toLocaleDateString()).reduce((value, nextValue)=> value > nextValue ? nextValue : value)
-     const minId = {tweets}.tweets.map(tweet=> tweet.Id).reduce((value, nextValue) => value > nextValue ? nextValue : value )
+     const minId = tweets.map(tweet=> tweet.Id).reduce((value, nextValue) => value > nextValue ? nextValue : value )
 
 
     return(

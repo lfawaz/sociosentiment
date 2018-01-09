@@ -22,7 +22,7 @@ ReactDOM.render(
         <Switch>
           <Route path='/cloud' component={()=> <CandidateWordList handleList={handleList}/>}  />
           <Route path='/trend' component={()=> <CandidateTrendList handleList={handleList}/>} />
-          <Route path='/'      component={Home}  />
+          <Route path='/'      component={()=> <Home handleList={handleList}/>}  />
         </Switch>
   </BrowserRouter>
   </Provider>

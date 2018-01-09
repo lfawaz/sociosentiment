@@ -5,7 +5,7 @@ import './chart.css'
 
 class ChartLine extends Component {
   render(){
-  const tweetText = this.props.tweetText
+  //const tweetText = this.props.tweetText
 
   const data= {
         labels: this.props.labels,

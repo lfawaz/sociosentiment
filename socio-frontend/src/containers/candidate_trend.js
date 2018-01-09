@@ -31,6 +31,10 @@ class CandidateTrend extends Component  {
      const retweetsMovingAverage = this.calculateMovingAverage(retweets)
      const labels = tweets.map((tweet,index) => index.toString())
 
+     const tweetsAfter =  tweets.map(tweet=> new Date(tweet.date).toLocaleDateString()).reduce((value, nextValue)=> value > nextValue ? nextValue : value)
+     const minId = {tweets}.tweets.map(tweet=> tweet.Id).reduce((value, nextValue) => value > nextValue ? nextValue : value )
+
+
     return(
 
       <tr className="handle-row">
@@ -39,12 +43,19 @@ class CandidateTrend extends Component  {
 
           <img src={tweets[0].image} alt=""/>
           <p>{this.props.handle}</p>
+          <p>tweets After: {tweetsAfter}</p>
           </td>
         <td>
           <ChartLine data={favoritesMovingAverage} tweetText={tweetText} labels={labels} label="Favorites moving average"/>
           </td>
         <td>
           <ChartLine data={retweetsMovingAverage} labels={labels} label="retweets moving average"/>
+          </td>
+          <td className="btn btn-warning"
+          onClick={()=> {
+            this.props.getTweets(this.props.handle,{minId})}
+        }
+          >Go Back
           </td>
 
       </tr>
