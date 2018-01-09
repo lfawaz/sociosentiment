@@ -42,7 +42,7 @@ exports.getTweets = function(req, res){
 
                                              })
                                            )
-          console.log(tweets)                                 
+          console.log(tweets)
             res.send(tweets)
      })
 }
@@ -53,7 +53,6 @@ exports.getTweets = function(req, res){
 
 exports.getAllTweets = function(req, res){
   const request = 'statuses/user_timeline'
-
   params.screen_name = req.params.handle
   params.count = 2
           client.get(request, params)

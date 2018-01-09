@@ -13,11 +13,8 @@
   height: 100px;
 }
 
-.left-body-div{
-  width: 50%;
-}
-
-.right-body-div{
+.side-body-div{
+  display: flex;
   width: 50%;
 }
 
