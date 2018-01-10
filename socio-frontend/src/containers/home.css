@@ -21,6 +21,7 @@
 }
 .side-body-div{
   display: flex;
+  flex-direction: column;
   width: 50%;
 }
 
