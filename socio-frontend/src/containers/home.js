@@ -40,7 +40,12 @@ class Home extends Component {
     return(<div className='app-div'>
 
     <div className='navbar-div'>
-    Navbar
+
+    <p>President</p>
+    <p>Senate</p>
+    <p>House</p>
+    <p>Governer</p>
+
     </div>
 
 
@@ -57,10 +62,10 @@ class Home extends Component {
 
     <div className='side-body-div right-body-div'>
     <div className='side-body-list-div right-body-list-div'>
-    {handleList}
+
     </div>
     <div className='side-body-content-div right-body-content-div'>
-    <Candidate handle={this.state.selectedHandle} />
+
     </div>
     </div>
 

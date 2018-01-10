@@ -10,9 +10,15 @@
 }
 
 .navbar-div{
+  display: flex;
   height: 100px;
+
 }
 
+.navbar-div p{
+  margin-left: 10px;
+
+}
 .side-body-div{
   display: flex;
   width: 50%;
