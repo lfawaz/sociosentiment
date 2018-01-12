@@ -5,7 +5,7 @@ import './chart.css'
 
 class ChartLine extends Component {
   render(){
-  //const tweetText = this.props.tweetText
+  const tweetDate = this.props.tweetDate
 
   const data= {
         labels: this.props.labels,
@@ -45,9 +45,9 @@ class ChartLine extends Component {
                         backgroundColor: 'rgb(255, 0, 0)'
                     }
                 },
-                 // label:function(tooltipItem, data){
-                 //   return `Tweet:${tweetText[tooltipItem.index]}`
-                 // }
+                 label:function(tooltipItem, data){
+                   return `Data:${tweetDate[tooltipItem.index]}`
+                 }
             }
         }
 

@@ -14,23 +14,25 @@ function cleanString(string){
 }
 
 
-const params = {
-               exclude_replies: true,
-               include_rts: false,
-               tweet_mode: 'extended'
-             }
+
 
 exports.getTweets = function(req, res){
+  const params = {
+                 exclude_replies: true,
+                 include_rts: false,
+                 tweet_mode: 'extended'
+               }
+
    const request = 'statuses/user_timeline'
 
    params.screen_name = req.params.handle
    params.count = 3200
    params.max_id = req.params.maxId
-   let data = {}
 
-  client.get(request, params,function(error,data,response){
-       const tweets = {}
-       tweets[req.params.handle] = data.map(tweet => ({
+   const tweets = {}
+
+   client.get(request, params,function(error,data,response){
+        tweets[req.params.handle] = data.map(tweet => ({
                                              "Id": tweet.id,
                                              "date": tweet.created_at,
                                              "tweet" : cleanString(tweet.full_text),
@@ -42,27 +44,48 @@ exports.getTweets = function(req, res){
 
                                             })
                                           )
-          const maxId = tweets[req.params.handle].map(tweet=> tweet.Id).reduce((value, nextValue) => value > nextValue ? nextValue : value )
 
-           params.max_id = maxId
-           console.log(params)
+      const maxId = tweets[req.params.handle].map(tweet=> tweet.Id).reduce((value, nextValue) => value > nextValue ? nextValue : value )
+      //res.send(tweets)
+      function get_historical_tweets(previous_tweets,maxId){
+        params.max_id = maxId
+        client.get(request, params, function(error,data,response){
 
-          client.get(request, params, function(error,data,response){
+          new_data = data.map(tweet => ({
+                                                "Id": tweet.id,
+                                                "date": tweet.created_at,
+                                                "tweet" : cleanString(tweet.full_text),
+                                                "full_tweet" : tweet.full_text,
+                                                "retweets": tweet.retweet_count,
+                                                "favorites": tweet.favorite_count,
+                                                "followers" : tweet.user.followers_count,
+                                                "image" : tweet.user.profile_image_url
 
-            tweets[req.params.handle] = [...tweets[req.params.handle],...data.map(tweet => ({
-                                                  "Id": tweet.id,
-                                                  "date": tweet.created_at,
-                                                  "tweet" : cleanString(tweet.full_text),
-                                                  "full_tweet" : tweet.full_text,
-                                                  "retweets": tweet.retweet_count,
-                                                  "favorites": tweet.favorite_count,
-                                                  "followers" : tweet.user.followers_count,
-                                                  "image" : tweet.user.profile_image_url
+                                              }))
+                console.log(new_data.length)
+                if(new_data.length > 1){
 
-                                                 })
-                                               )]
-              res.send(tweets)
-          })
+                  tweets[req.params.handle] = [...previous_tweets[req.params.handle],...new_data].slice(0,10000)
+                  const maxId = tweets[req.params.handle].map(tweet=> tweet.Id).reduce((value, nextValue) => value > nextValue ? nextValue : value )
+                  get_historical_tweets(tweets,maxId)
+                  console.log(req.params.handle,maxId)
+
+                } else{
+                  console.log("sending")
+                  tweets[req.params.handle] = tweets[req.params.handle].reverse()
+                   res.send(tweets)
+                }
+
+        })
+
+      }
+
+      get_historical_tweets(tweets,maxId)
+
+//end of get_historical_tweets
+
+
+
      })
 
 
@@ -74,6 +97,12 @@ exports.getTweets = function(req, res){
 
 
 exports.getAllTweets = function(req, res){
+  const params = {
+                 exclude_replies: true,
+                 include_rts: false,
+                 tweet_mode: 'extended'
+               }
+
   const request = 'statuses/user_timeline'
   params.screen_name = req.params.handle
   params.count = 2
@@ -82,13 +111,6 @@ exports.getAllTweets = function(req, res){
           }
 
 
-exports.getAllMentions = function(req, res){
-  const request = 'statuses/mentions_timeline'
-  params.screen_name = req.params.handle
-  params.count = 2
 
-          client.get(request, params)
-            .then(tweets => res.send(tweets))
-          }
 
 module.exports = exports

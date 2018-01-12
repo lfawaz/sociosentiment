@@ -13,7 +13,7 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom'
 import Home from './containers/home'
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore)
 
-const handleList = [['Oprah','blue'],['realdonaldtrump','red'],['BernieSanders','blue'],['JoeBiden','blue'],['KamalaHarris','blue'],['SenBooker','blue'],['SenGillibrand','blue'],['SenWarren','blue'],['JohnKasich','red']]
+const handleList = [['realdonaldtrump'],['BernieSanders'],['JoeBiden'],['KamalaHarris'],['SenBooker'],['SenGillibrand'],['SenWarren'],['JohnKasich']]
 //const store = createStore(rootReducer)
 
 ReactDOM.render(
