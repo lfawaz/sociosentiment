@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import CandidateTrendList from './components/candidate_trend_list'
 import CandidateWordList from './components/candidate_word_list'
+import Senate from './components/senate'
+import House from './components/house'
+import Governor from './components/governor'
+import President from './components/president'
 
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
@@ -22,6 +26,10 @@ ReactDOM.render(
         <Switch>
           <Route path='/cloud' component={()=> <CandidateWordList handleList={handleList}/>}  />
           <Route path='/trend' component={()=> <CandidateTrendList handleList={handleList}/>} />
+          <Route path='/senate' component={Senate} />
+          <Route path='/house' component={House} />
+          <Route path='/Governor' component={Governor} />
+          <Route path='/President' component={President} />
           <Route path='/'      component={()=> <Home handleList={handleList}/>}  />
         </Switch>
   </BrowserRouter>

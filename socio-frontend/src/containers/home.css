@@ -9,10 +9,8 @@
 
 }
 
-.navbar-div{
-  display: flex;
-  height: 100px;
-
+input {
+  border: 1px solid #000;
 }
 
 .navbar-div p{

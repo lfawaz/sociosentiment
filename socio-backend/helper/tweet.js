@@ -62,8 +62,8 @@ exports.getTweets = function(req, res){
                                                 "image" : tweet.user.profile_image_url
 
                                               }))
-                console.log(new_data.length)
-                if(new_data.length > 1){
+                if(new_data.length > 1)
+                {
 
                   tweets[req.params.handle] = [...previous_tweets[req.params.handle],...new_data].slice(0,10000)
                   const maxId = tweets[req.params.handle].map(tweet=> tweet.Id).reduce((value, nextValue) => value > nextValue ? nextValue : value )

@@ -3,6 +3,8 @@ import Candidate from './candidate'
 import { connect } from 'react-redux'
 import { getTweets } from '../actions/index'
 import './home.css'
+import Navbar from '../components/navbar'
+
 
 class Home extends Component {
   constructor(props){
@@ -40,16 +42,10 @@ else {
     ))
 
 
+
     return(<div className='app-div'>
 
-    <div className='navbar-div'>
-
-    <p>President</p>
-    <p>Senate</p>
-    <p>House</p>
-    <p>Governer</p>
-
-    </div>
+    <Navbar />
 
 
     <div className='body-div'>
