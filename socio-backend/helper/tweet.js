@@ -82,35 +82,48 @@ exports.getTweets = function(req, res){
 
       get_historical_tweets(tweets,maxId)
 
+
+
+     })
+}
+
 //end of get_historical_tweets
 
 
 
-     })
 
 
 
-}
+  exports.getAllTweets = function(req, res){
+    const params = {
+                   exclude_replies: true,
+                   include_rts: false,
+                   tweet_mode: 'extended'
+                 }
+
+    const request = 'statuses/user_timeline'
+    params.screen_name = req.params.handle
+    params.count = 2
+            client.get(request, params)
+              .then(tweets => res.send(tweets[0]))
+            }
+
+exports.getFollowers = function(req, res){
+
+
+    const params = {
+                   curosr: req.params.handle
+                 }
 
 
 
+  const request = 'followers/list'
 
-
-exports.getAllTweets = function(req, res){
-  const params = {
-                 exclude_replies: true,
-                 include_rts: false,
-                 tweet_mode: 'extended'
-               }
-
-  const request = 'statuses/user_timeline'
   params.screen_name = req.params.handle
-  params.count = 2
+  params.count = 200
+
           client.get(request, params)
-            .then(tweets => res.send(tweets[0]))
+            .then(followers => res.send(followers))
           }
-
-
-
 
 module.exports = exports
