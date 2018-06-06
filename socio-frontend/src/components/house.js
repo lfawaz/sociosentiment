@@ -5,7 +5,9 @@ class House extends Component {
   render(){
     return (<div>
       <Navbar />
-      House</div>)
+      <div>US Map</div>
+      <div><div>Democrat Selected House candidate List</div><div>Republican Selected House candidate List</div></div>
+      </div>)
   }
 }
 

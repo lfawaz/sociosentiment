@@ -1,32 +1,4 @@
-.app-div{
-  display: flex;
-  flex-direction: column;
-}
-
-.body-div{
-  display: flex;
-  height: 500px;
-
-}
-
-input {
-  border: 1px solid #000;
-}
-
-.navbar-div p{
-  margin-left: 10px;
-
-}
-.side-body-div{
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-}
-
-.foot-div{
-  height: 75px;
-}
-
-div{
-  border: 1px solid black;
+th, td{
+  border: 1px dashed black;
+  padding: 5px
 }

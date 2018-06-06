@@ -5,7 +5,9 @@ class Governor extends Component {
   render(){
     return (<div>
       <Navbar />
-      Governor</div>)
+      <div>US Map</div>
+      <div><div>Democrat Selected Governor candidate List</div><div>Republican Selected Governor candidate List</div></div>
+      </div>)
   }
 }
 

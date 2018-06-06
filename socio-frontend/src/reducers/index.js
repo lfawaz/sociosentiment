@@ -1,8 +1,18 @@
 import { combineReducers } from 'redux'
-import tweetReducer from './reducer_tweet'
+import candidateReducer from './reducer_candidate'
+import candidateListReducer from './reducer_candidateList'
+import candidateTweetsByMonthReducer from './reducer_candidateTweetByMonth'
+import candidateTweetsMovingAvgReducer from './reducer_candidateTweetMovingAvg'
+import candidateTopXTweets from './reducer_candidateTopXTweets'
+import candidateTopXWords from './reducer_candidateTopXWords'
 
 const rootReducer = combineReducers({
-  tweetsAll: tweetReducer
+  candidate: candidateReducer,
+  candidateList: candidateListReducer,
+  tweetsByMonth: candidateTweetsByMonthReducer,
+  tweetsMovingAvg: candidateTweetsMovingAvgReducer,
+  topxtweets: candidateTopXTweets,
+  topxwords: candidateTopXWords
 
 })
 

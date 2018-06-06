@@ -1,83 +1,64 @@
 import React, { Component } from 'react'
-import ChartLine from '../components/chart'
 import { connect } from 'react-redux'
-import * as Datetime from 'react-datetime'
+import { getCandidate } from '../actions/index'
+import { Link } from 'react-router-dom'
+import './candidate.css'
+
 
 class Candidate extends Component {
 
   constructor(props){
     super(props)
 
-    this.state={startdate: 'Jan 01 00:00:00 +0000 2015'}
+    this.loadData = this.loadData.bind(this)
     this.calculateAverage = this.calculateAverage.bind(this)
-    this.returnFollowers = this.returnFollowers.bind(this)
-    this.calculateMovingAverage = this.calculateMovingAverage.bind(this)
   }
+
+  loadData(screen_name){
+      this.props.getCandidate(screen_name)
+    }
 
   calculateAverage(tweets,value){
 
-     return Math.ceil(tweets.data.map(tweet => tweet[value]).reduce((accu, nextValue)=> {
+     return Math.ceil(tweets.map(tweet => tweet[value]).reduce((accu, nextValue)=> {
        return accu += nextValue
-     },0)/tweets.data.length)
+     },0)/tweets.length)
   }
 
-  returnFollowers(tweets){
-    if(tweets.data.length === 0){
-      return 0
-    }else{
-      return tweets.data[0]['followers']
-    }
-  }
-
-  calculateMovingAverage(tweets, value){
-    const data = tweets.data.map(tweet=> tweet[value])
-
-      return data.map((value, index) => {
-        const accu = data.slice(0,index+1).reduce((accu, value) => accu + value)
-        return accu/(index+1)
-      })
+  componentWillMount(){
+    this.loadData(this.props.screen_name)
   }
 
 
   render(){
-    if(this.props.handle === ""){
-      return(<div></div>)
+
+    if(!this.props.candidate){
+      return (<tr><td>loading</td></tr>)
     }
-    if(!this.props.data){
-      return(<div>Loading data for ... {this.props.handle}</div>)
+    else{
+
+      const { name, profile_image_url, followers_count, location, tweets, screen_name } = this.props.candidate
+      const AvgRetweets = this.calculateAverage(tweets,'retweets')
+      const AvgFavorites = this.calculateAverage(tweets, 'favorites')
+
+      return(<tr className="main-div">
+
+        <td><img src={profile_image_url} alt="Not Available" /></td>
+        <td><p>Name</p><p>{name}</p></td>
+        <td><p>Followers</p><p>{followers_count}</p></td>
+        <td><p>location</p><p>{location}</p></td>
+        <td><p>Average Retweets</p><p>{AvgRetweets}</p></td>
+        <td><p>Average Favorites</p><p>{AvgFavorites}</p></td>
+        <td><Link to={`/candidate/${screen_name}`} >More Details...</Link></td>
+
+        </tr>)
     }
-    const {handle} = this.props
-    const data = this.props.data.filter(tweet => new Date(tweet.date) > new Date(this.state.startdate))
-    const labels = data.map((value,index)=> index.toString() )
-    const tweetDate = data.map((value,index)=> value.date.toString() )
-    const TweetsCount = data.length
-    return(
-      <div>
-      <div>{handle}</div>
-      <Datetime
-        inputProps={{placeholder:'Select Starting From Date'}}
-        className="input-date-picker"
-        onChange={(e) => this.setState({startdate:e._d})}
-        />
-      <div>Tweets Counted: {TweetsCount}</div>
-      <div>Average Favorites: {this.calculateAverage({data},'favorites')} </div>
-      <div>Followers: {this.returnFollowers({data})} </div>
-      <div>Average Retweets: {this.calculateAverage({data},'retweets')}</div>
-      <div>Retweeters/Follower Ratio: {(this.calculateAverage({data},'retweets')/this.returnFollowers({data})*100).toFixed(2)}</div>
-      <div>Favorites/Follower Ratio: {(this.calculateAverage({data},'favorites')/this.returnFollowers({data})*100).toFixed(2)}</div>
-      <div><ChartLine
-        data={this.calculateMovingAverage({data},'favorites')}
-        labels={labels}
-        tweetDate={tweetDate}
-        label="Favorites Moving Average"/>
-        </div>
-      </div>
-    )
+
   }
 }
 
-function mapStateToProps({ tweetsAll }, ownProps){
-  return { data: tweetsAll[ownProps.handle] }
-}
+function mapStateToProps({ candidate },ownProps){
 
-export default connect(mapStateToProps)(Candidate)
+  return { candidate: candidate[ownProps.screen_name] }
+}
+export default connect(mapStateToProps, { getCandidate })(Candidate)

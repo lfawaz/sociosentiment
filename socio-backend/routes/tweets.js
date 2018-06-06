@@ -1,20 +1,25 @@
 var express = require('express')
 var router = express.Router()
-var helpers = require('../helper/tweet')
-
-
+var helpers = require('../helper/external')
 
 router.route('/:handle/all/')
-     .get(helpers.getAllTweets)
-     
+  .get(helpers.getAllTweets)
+
+router.route('/info/:handle/')
+  .get(helpers.getCandidate)
+
+
+router.route('/:handle/:sinceId/latest')
+  .get(helpers.getLatestTweets)
+
 router.route('/:handle/:cursor/followers')
-       .get(helpers.getFollowers)
+  .get(helpers.getFollowers)
 
 router.route('/:handle/:maxId')
-   .get(helpers.getTweets)
+  .get(helpers.getTweets)
 
 router.route('/:handle')
-   .get(helpers.getTweets)
+  .get(helpers.getTweets)
 
 
 

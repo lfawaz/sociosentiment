@@ -9,8 +9,8 @@ class Navbar extends Component {
         <Link to='/'><p>Home</p></Link>
         <Link to='/President'> <p>President</p></Link>
         <Link to='/Senate'><p>Senate</p></Link>
-        <Link to='House'><p>House</p></Link>
-        <Link to='Governor'><p>Governor</p></Link>
+        <Link to='/House'><p>House</p></Link>
+        <Link to='/Governor'><p>Governor</p></Link>
 
         </div>
 )
