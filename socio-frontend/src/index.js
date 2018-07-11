@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 //import CandidateTrendList from './components/candidate_trend_list'
 //import CandidateWordList from './components/candidate_word_list'
-import Senate from './components/senate'
-import House from './components/house'
-import Governor from './components/governor'
+import Senate from './containers/senate'
+import House from './containers/house'
+import Governor from './containers/governor'
 import President from './containers/president'
 import RefreshData from './containers/refresh_data'
 import AddCandidate from './containers/add_candidate'

@@ -1,0 +1,12 @@
+.filter-item{
+  border: 1px dashed black;
+  padding: 3px;
+}
+
+.filter-item:hover,.filter-item-selected{
+  background: lightgrey;
+}
+
+.filter-item:active{
+  background: grey;
+}

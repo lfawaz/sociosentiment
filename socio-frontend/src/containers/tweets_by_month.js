@@ -12,7 +12,7 @@ class TweetsByMonth extends Component {
   render(){
 
     const { tweetsByMonth } = this.props
-
+    console.log(tweetsByMonth)
     if(Object.keys(tweetsByMonth).length === 0){
       return(<div>Loading...</div>)
     }else{

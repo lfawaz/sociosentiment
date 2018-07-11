@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var helpers = require('../helper/internal')
 
+
 router.route('/info/:handle/')
   .get(helpers.getCandidateInfo)
   .post(helpers.postCandidateInfo)
@@ -26,5 +27,6 @@ router.route('/toptweets/:handle/:topx')
 
 router.route('/topwords/:handle/:topx')
   .get(helpers.getTopXWords)
+
 
 module.exports = router

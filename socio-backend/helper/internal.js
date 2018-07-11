@@ -114,7 +114,6 @@ exports.getCandidateTweetsByMonth = function(req, res){
 
   db.candidates.findOne({"screen_name": handle})
     .then(candidate => {
-
       const today = new Date()
       const lastYear = new Date(today).setDate(today.getDate() - 100 )
 
@@ -122,7 +121,7 @@ exports.getCandidateTweetsByMonth = function(req, res){
       const candidateTweets = candidate.tweets.filter(tweet => new Date(tweet.date).getFullYear() >= 2017)
                                               .sort(dateSort)
 
-
+      console.log(candidate.tweets)
       const tweetsByMonth = candidateTweets.map(tweet => {
 
           return {
@@ -232,10 +231,12 @@ exports.getTopXTweets = function (req, res){
      const endingIndex = index + 1
      if(index < period){
        const accu = data.slice(0,endingIndex).reduce((accu, value) => accu + value)
+
        return accu/endingIndex
      }else{
        const startingIndex = index - period
        const accu = data.slice(startingIndex,endingIndex).reduce((accu, value) => accu + value)
+
        return accu/period
      }
 
@@ -258,6 +259,7 @@ exports.getTopXTweets = function (req, res){
 
     })
  }
+
 
 function dateSort(a, b){
   var date1 = new Date(a.date)

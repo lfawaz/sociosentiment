@@ -5,6 +5,9 @@ import candidateTweetsByMonthReducer from './reducer_candidateTweetByMonth'
 import candidateTweetsMovingAvgReducer from './reducer_candidateTweetMovingAvg'
 import candidateTopXTweets from './reducer_candidateTopXTweets'
 import candidateTopXWords from './reducer_candidateTopXWords'
+import senateCandidateListReducer from './reducer_senateCandidateList'
+import governorCandidateListReducer from './reducer_governorCandidateList'
+import houseCandidateListReducer from './reducer_houseCandidateList'
 
 const rootReducer = combineReducers({
   candidate: candidateReducer,
@@ -12,7 +15,10 @@ const rootReducer = combineReducers({
   tweetsByMonth: candidateTweetsByMonthReducer,
   tweetsMovingAvg: candidateTweetsMovingAvgReducer,
   topxtweets: candidateTopXTweets,
-  topxwords: candidateTopXWords
+  topxwords: candidateTopXWords,
+  senateCandidateList: senateCandidateListReducer,
+  governorCandidateList: governorCandidateListReducer,
+  houseCandidateList: houseCandidateListReducer
 
 })
 

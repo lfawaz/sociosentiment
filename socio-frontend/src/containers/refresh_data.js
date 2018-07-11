@@ -5,10 +5,20 @@ import RefreshCandidate  from './refresh_candidate'
 class RefreshData extends Component {
 
   render(){
-
-      let candidates = this.props.candidateList.map(candidate => {
+      const presCandidates = this.props.candidateList.map(candidate => {
         return <RefreshCandidate key={candidate.screen_name} screen_name={candidate.screen_name} />
       })
+
+      const senateCandidates = this.props.senateCandidateList.map(candidate => {
+        return <RefreshCandidate key={candidate.screen_name} screen_name={candidate.screen_name} />
+      })
+
+      const governorCandidates = this.props.governorCandidateList.map(candidate => {
+        return <RefreshCandidate key={candidate.screen_name} screen_name={candidate.screen_name} />
+      })
+
+      let candidates = presCandidates.concat(senateCandidates).concat(governorCandidates)
+
     return(
       <table>
       <tbody>
@@ -22,7 +32,7 @@ class RefreshData extends Component {
 
 }
 
-function mapStateToProps({ candidateList }){
-  return { candidateList }
+function mapStateToProps({ candidateList, senateCandidateList, governorCandidateList }){
+  return { candidateList, senateCandidateList, governorCandidateList }
 }
 export default connect(mapStateToProps)(RefreshData)

@@ -1,13 +1,12 @@
 .main-div{
   display: flex;
   flex-direction: row;
+  border: 1px dashed grey;
+  padding: 2px;
 }
 
-div{
-  margin: 5px;
-  padding: 5px
-}
-
-tr{
-  border: 2px solid black;
+.main-div-item{
+  margin: 2px;
+  border: 1px dashed grey;
+  padding: 2px;
 }

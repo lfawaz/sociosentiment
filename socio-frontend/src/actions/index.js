@@ -10,6 +10,7 @@ export const GET_TWEETS_BY_MONTH = 'GET_TWEETS_BY_MONTH'
 export const GET_TWEETS_MOVING_AVG = 'GET_TWEETS_MOVING_AVG'
 export const GET_TOPX_TWEETS = 'GET_TOPX_TWEETS'
 export const GET_TOPX_WORDS = 'GET_TOPX_WORDS'
+export const GET_RACES = 'GET_RACES'
 
 export function getCandidate(handle){
 
@@ -79,10 +80,10 @@ export function postCandidate(screen_name){
       .then(response => {
 
         const API_GET_TWEETS_URL = `${ROOT_API_URL}/${screen_name}`
-        const DB_POST_TWEETS_URL = `${ROOT_DB_URL}/tweets/${screen_name}`
-
+        const DB_POST_TWEETS_URL = `${ROOT_DB_URL}/${screen_name}`
         axios.get(API_GET_TWEETS_URL)
           .then(alltweets => {
+
             const tweets = alltweets.data[screen_name]
             tweets.forEach(tweet => axios.post(DB_POST_TWEETS_URL, tweet))
       })
@@ -137,6 +138,17 @@ export function getTopXWords(screen_name, topx){
 
   return {
     type: GET_TOPX_WORDS,
+    payload: request
+  }
+}
+
+export function getRaces(race){
+  const URL = `${ROOT_DB_URL}/races`
+
+  const request = axios.get(URL)
+
+  return {
+    type: GET_RACES,
     payload: request
   }
 }

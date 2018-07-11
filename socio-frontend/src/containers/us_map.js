@@ -5,7 +5,7 @@ import './us_map.css'
 class USAMap extends Component {
   render() {
 
-    return (<div><SVGMap map={USA} /></div>)
+    return (<SVGMap map={USA} />)
   }
 }
 
